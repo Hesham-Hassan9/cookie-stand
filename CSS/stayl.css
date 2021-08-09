@@ -10,3 +10,12 @@
 font-size: 25px;
 margin-bottom: 15px;
 }
+
+#branch table{
+ table-layout: fixed;
+ width: 100%;  
+}
+#branch td {
+    border: 4px solid black;
+    text-align: center;
+  }
