@@ -1,3 +1,94 @@
+body{
+    background-color: whitesmoke;
+}
+#location{
+    background-image: url("https://www.nationsonline.org/maps/Political-World-Map-3360.jpg");
+}
+#sales{
+    background-image: url("https://certifind.com/blog/wp-content/uploads/2017/09/sales.jpg");
+}
+#Shop ul li {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+table {
+    background-color: rgba(255, 255, 255, 0.753);
+}
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+   th, td {
+    padding: 15px;
+    text-align: left;
+  }
+   th {
+       
+    background-color: black;
+    color: white;
+  }
+header{
+    height: 100px;
+    color: rgb(255, 255, 255);
+    background-color: black;
+}
+header nav{
+	width: 960px;
+	font-display: center;
+	margin: auto;
+	
+}
+
+header nav img{
+	float: left;
+	margin-top: 15px;
+	margin-left: 30px;
+}
+header nav ul li {
+		display: inline-block;
+		margin-top: 40px;
+		margin-left: 50px;
+		
+	  }
+	  
+header a {
+		text-decoration: none;
+		font-size: 25px;
+		color: rgb(255, 255, 255);
+	  }
+      main{
+        width: 960;
+        margin: auto;
+        max-width: 900px;
+        padding: 5px;
+      }
+
+      main div {
+        margin-left: 20%;
+      }
+      main p {
+        overflow: auto;
+        margin-bottom: 20px;
+      }
+
+footer{
+    margin-top: 500px;
+    height: 100px;
+    background-color: black;
+}
+footer h1{
+    font-size: 15px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+
+ header h1{
+    font-size: 30px;
+}
+
+
 #branch li {
 
     margin-left: 20px;
@@ -10,12 +101,3 @@
 font-size: 25px;
 margin-bottom: 15px;
 }
-
-#branch table{
- table-layout: fixed;
- width: 100%;  
-}
-#branch td {
-    border: 4px solid black;
-    text-align: center;
-  }
