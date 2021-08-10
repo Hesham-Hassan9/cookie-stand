@@ -54,7 +54,7 @@ let FirstRow = document.createElement('tr');
 table.appendChild(FirstRow);
 let th = document.createElement('th');
 FirstRow.appendChild(th);
-th.textContent = '-----';
+th.textContent = 'hours open';
 for (let i = 0; i < hours.length; i++) {
   let th = document.createElement('th');
   FirstRow.appendChild(th);
