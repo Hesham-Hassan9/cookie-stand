@@ -13,6 +13,7 @@ body{
 }
 
 table {
+    float: right;
     background-color: rgba(255, 255, 255, 0.753);
 }
   table, th, td {
@@ -70,6 +71,19 @@ header a {
       main p {
         overflow: auto;
         margin-bottom: 20px;
+      }
+      main form{
+        width: 250px;
+        border: 3px black;
+        font-size: 20px;
+        background-color: rgba(255, 255, 255, 0.671);
+      }
+      main form legend{
+        margin-top: 25px;
+        background-color: black;
+        border-color: 10px black;
+        color: white;
+        font-size: 25px;
       }
 
 footer{

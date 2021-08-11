@@ -1,8 +1,12 @@
 'use strict';
 //
 let hours = ['6am ' ,'7am ','8am','9am','10am','11am','12pm ','1pm ','2pm ','3pm ','4pm ','5pm ','6pm ','7pm '];
+// eslint-disable-next-line no-unused-vars
+let footerRow;
+let shop = [];
 let container = document.getElementById('branch');
-console.log(container);
+let table = document.createElement('table');
+container.appendChild(table);
 
 function Branch (location, min, max, avgCookieSale) {
   this.NameBranch = location,
@@ -36,85 +40,144 @@ Branch.prototype.randomNumberOfCustomers = function(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 };
-let seattle = new Branch('Seattle', 23, 65, 6.3);
-let tokyo = new Branch('Tokyo', 3, 24, 1.2);
-let dobai = new Branch('Dubai', 11, 38, 3.7);
-let paris = new Branch('Paris', 20, 38, 2.3);
-let lima = new Branch('Lima', 2, 16, 4.6);
+
 //shoplistArray
-let shopList = [seattle, tokyo, dobai, paris, lima];
+shop.push(new Branch('Seattle', 23, 65, 6.3));
+shop.push(new Branch('Tokyo', 3, 24, 1.2));
+shop.push(new Branch('Dubai', 11, 38, 3.7));
+shop.push(new Branch('Paris', 20, 38, 2.3));
+shop.push(new Branch('Lima', 2, 16, 4.6));
 
+//randor shops
+///table
 
-let table = document.createElement('table');
-container.appendChild(table);
-
-//First row method
-
-let FirstRow = document.createElement('tr');
-table.appendChild(FirstRow);
-let th = document.createElement('th');
-FirstRow.appendChild(th);
-th.textContent = 'hours open';
-for (let i = 0; i < hours.length; i++) {
+//header row
+function headerRowFunction() {
+  let headerRow = document.createElement('tr');
+  table.appendChild(headerRow);
   let th = document.createElement('th');
-  FirstRow.appendChild(th);
-  th.textContent = hours[i];
-}
-th = document.createElement('th');
-FirstRow.appendChild(th);
-th.textContent = 'Daily Location Total';
-
-
-
-
-for (let i = 0; i < shopList.length; i++) {
-  let currentShop = shopList[i];
-  let shoprow = document.createElement('tr');
-  table.appendChild(shoprow);
-  let shopTd = document.createElement('td');
-  shoprow.appendChild(shopTd);
-  shopTd.textContent = currentShop.NameBranch;
-
-
-  ////row2 data
+  headerRow.appendChild(th);
+  th.textContent = 'hours open';
   for (let i = 0; i < hours.length; i++) {
-    let dataIn = document.createElement('td');
-    shoprow.appendChild(dataIn);
-    dataIn.textContent = currentShop.amountsOfCookiesPurchased[i];
+    let th = document.createElement('th');
+    headerRow.appendChild(th);
+    th.textContent = hours[i];
   }
-
-  // totaly daily sales
-  shopTd = document.createElement('td');
-  shoprow.appendChild(shopTd);
-  shopTd.textContent = currentShop.dailySales;
+  th = document.createElement('th');
+  headerRow.appendChild(th);
+  th.textContent = 'Daily Location Total';
 }
 
 
-//footer Row
-let footerRow = document.createElement('tr');
-table.appendChild(footerRow);
-th = document.createElement('th');
-footerRow.appendChild(th);
-th.textContent = 'Totals';
-// tatal for every day
-let totalSalesCookies = 0;
-for (let i = 0; i < hours.length; i++) {
+
+////row data
+function dataRowFunction() {
+
+  for (let i = 0; i < shop.length; i++) {
+    let currentShop = shop[i];
+    let shoprow = document.createElement('tr');
+    table.appendChild(shoprow);
+    let shopTd = document.createElement('td');
+    shoprow.appendChild(shopTd);
+    shopTd.textContent = currentShop.NameBranch;
+
+
+    for (let i = 0; i < hours.length; i++) {
+      let dataIn = document.createElement('td');
+      shoprow.appendChild(dataIn);
+      dataIn.textContent = currentShop.amountsOfCookiesPurchased[i];
+
+    }
+
+    // totaly daily sales
+    shopTd = document.createElement('td');
+    shoprow.appendChild(shopTd);
+    shopTd.textContent = currentShop.dailySales;
+  }
+
+}
+
+
+
+//totals Function
+function totalsFunction() {
+
+  let footerRowtr = document.createElement('tr');
+  footerRow = footerRowtr;
+  table.appendChild(footerRowtr);
   let td = document.createElement('td');
-  footerRow.appendChild(td);
-  let sum = 0;
-  for (let j = 0; j < shopList.length; j++) {
-    let currentShop = shopList[j];
+  footerRowtr.appendChild(td);
+  td.textContent = 'Totals';
+  // tatal for every day
+  let megaTotalSalesCookies = 0;
+  for (let i = 0; i < hours.length; i++) {
+    let td = document.createElement('td');
+    footerRowtr.appendChild(td);
+    let sum = 0;
+    for (let j = 0; j < shop.length; j++) {
+      let currentShop = shop[j];
 
-    sum += currentShop.amountsOfCookiesPurchased[i];
+      sum += currentShop.amountsOfCookiesPurchased[i];
+    }
+    // sum all totals
+    td.textContent = sum;
+    megaTotalSalesCookies += sum;
   }
-  // sum all totals
-  td.textContent = sum;
-  totalSalesCookies += sum;
-}
-let td = document.createElement('td');
-footerRow.appendChild(td);
-td.textContent = totalSalesCookies;
+  td = document.createElement('td');
+  footerRowtr.appendChild(td);
+  td.textContent = megaTotalSalesCookies;
 
+}
+headerRowFunction(table);
+dataRowFunction(table);
+totalsFunction(table);
+
+
+
+
+function renderNewRow() {
+  let tr = document.createElement('tr');
+  table.appendChild(tr);
+  let td = document.createElement('td');
+  tr.appendChild(td);
+  let currentShop =shop[shop.length-1];
+  console.log(currentShop);
+  td.textContent = currentShop.NameBranch;
+  //
+  for (let i = 0; i < hours.length; i++) {
+    let data = document.createElement('td');
+    tr.appendChild(data);
+    data.textContent = currentShop.amountsOfCookiesPurchased[i];
+
+  }
+  // totaly daily sales
+  td = document.createElement('td');
+  tr.appendChild(td);
+  td.textContent = currentShop.dailySales;
+}
+
+/////////////////Form//////////////////////
+
+let myform = document.getElementById('myform');
+myform.addEventListener('submit', addShop);
+function addShop(event) {
+  event.preventDefault();
+  let NameBranch = event.target.NameBranch.value;
+  let max = event.target.max.value;
+  let min = event.target.min.value;
+  let avg = event.target.avg.value;
+  // console.log(NameBranch);
+  // console.log(max);
+  // console.log(min);
+  // console.log(avg);
+  let newShop = new Branch(NameBranch, max, min, avg);
+  shop.push(newShop);
+  // dataRowFunction(table);
+  // console.log(newShop);
+  table.removeChild(footerRow);
+  renderNewRow();
+  totalsFunction();
+}
 
 // let Seattle = {
 //   NameBranch: 'Seattle',
@@ -335,3 +398,75 @@ td.textContent = totalSalesCookies;
 // Lima.getRandomNumberOfCustomersPerHour();
 // Lima.getAmountsOfCookiesPurchased();
 // Lima.render();
+
+
+// let table = document.createElement('table');
+// container.appendChild(table);
+
+//First row method
+// function render(){
+//   let FirstRow = document.createElement('tr');
+//   table.appendChild(FirstRow);
+//   let th = document.createElement('th');
+//   FirstRow.appendChild(th);
+//   th.textContent = 'hours open';
+//   for (let i = 0; i < hours.length; i++) {
+//     let th = document.createElement('th');
+//     FirstRow.appendChild(th);
+//     th.textContent = hours[i];
+//   }
+//   th = document.createElement('th');
+//   FirstRow.appendChild(th);
+//   th.textContent = 'Daily Location Total';
+
+
+
+
+//   for (let i = 0; i < shop.length; i++) {
+//     let currentShop = shop[i];
+//     let shoprow = document.createElement('tr');
+//     table.appendChild(shoprow);
+//     let shopTd = document.createElement('td');
+//     shoprow.appendChild(shopTd);
+//     shopTd.textContent = currentShop.NameBranch;
+
+
+//     ////row2 data
+//     for (let i = 0; i < hours.length; i++) {
+//       let dataIn = document.createElement('td');
+//       shoprow.appendChild(dataIn);
+//       dataIn.textContent = currentShop.amountsOfCookiesPurchased[i];
+//     }
+
+//     // totaly daily sales
+//     shopTd = document.createElement('td');
+//     shoprow.appendChild(shopTd);
+//     shopTd.textContent = currentShop.dailySales;
+//   }
+
+
+//   //footer Row
+//   let footerRow = document.createElement('tr');
+//   table.appendChild(footerRow);
+//   th = document.createElement('th');
+//   footerRow.appendChild(th);
+//   th.textContent = 'Totals';
+//   // tatal for every day
+//   let totalSalesCookies = 0;
+//   for (let i = 0; i < hours.length; i++) {
+//     let td = document.createElement('td');
+//     footerRow.appendChild(td);
+//     let sum = 0;
+//     for (let j = 0; j < shop.length; j++) {
+//       let currentShop = shop[j];
+
+//       sum += currentShop.amountsOfCookiesPurchased[i];
+//     }
+//     // sum all totals
+//     td.textContent = sum;
+//     totalSalesCookies += sum;
+//   }
+//   let td = document.createElement('td');
+//   footerRow.appendChild(td);
+//   td.textContent = totalSalesCookies;
+// }
